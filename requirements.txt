@@ -1,0 +1,8 @@
+loguru
+ipykernel
+jupyterlab
+numpy
+pandas
+matplotlib
+seaborn
+plotly
