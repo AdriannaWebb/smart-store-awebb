@@ -23,3 +23,53 @@ A list of customers and the total revenue they have generated.
 KPI: Customer Lifetime Value (CLV) or Total Revenue per Customer.
 - Action: Identify high-revenue customers to target them for loyalty programs, upselling, or exclusive offers, while identifying low-revenue customers who may benefit from promotional incentives.
 
+## Setup Guide (Windows)
+
+Run all commands from a PowerShell terminal in the root project folder.
+
+### Step 2A - Create a Local Project Virtual Environment
+
+```
+py -m venv .venv
+```
+
+### Step 2B - Activate the Virtual Environment
+
+```
+.venv\Scripts\activate
+```
+
+### Step 2C - Install Packages
+
+```
+py -m pip install --upgrade -r requirements.txt
+```
+
+### Step 2D - Optional: Verify .venv Setup
+
+```
+py -m datafun_venv_checker.venv_checker
+```
+
+### Step 2E - Run the initial project script
+
+```
+py scripts/data_prep.py
+```
+
+-----
+
+## Initial Package List
+
+- pip
+- loguru
+- ipykernel
+- jupyterlab
+- numpy
+- pandas
+- matplotlib
+- seaborn
+- plotly
+- pyspark==4.0.0.dev1
+- pyspark[sql]
+- git+https://github.com/denisecase/datafun-venv-checker.git#egg=datafun_venv_checker
