@@ -1,12 +1,12 @@
-CustomerID,Name,Region,JoinDate,LoyaltyPoints,CustomerSegment
-1001,William White,East,11/11/21,1500,VIP
-1002,Wylie Coyote,East,2/14/23,1000,Regular
-1003,Dan Brown,West,10/19/23,200,New
-1004,Chewbacca,West,11/9/22,1200,Regular
-1005,Dr Who,North,8/18/23,800,New
-1006,Tiffany James,South,6/7/21,1800,VIP
-1007,Susan Johnson,South,6/30/23,500,Regular
-1008,Tony Stark,North,5/1/20,2000,VIP
-1009,Jason Bourne,West,12/1/20,1700,VIP
-1010,Hermione Granger,East,12/9/22,1400,Regular
-1011,Hermione Grager,East,12/9/22,1400,Regular
+CustomerID,Name,Region,JoinDate,LoyaltyPoints,CustomerSegment,StandardDateTime
+1001,William White,East,11/11/21,1500,VIP,2021-11-11
+1002,Wylie Coyote,East,2/14/23,1000,Regular,2023-02-14
+1003,Dan Brown,West,10/19/23,200,New,2023-10-19
+1004,Chewbacca,West,11/9/22,1200,Regular,2022-11-09
+1005,Dr Who,North,8/18/23,800,New,2023-08-18
+1006,Tiffany James,South,6/7/21,1800,VIP,2021-06-07
+1007,Susan Johnson,South,6/30/23,500,Regular,2023-06-30
+1008,Tony Stark,North,5/1/20,2000,VIP,2020-05-01
+1009,Jason Bourne,West,12/1/20,1700,VIP,2020-12-01
+1010,Hermione Granger,East,12/9/22,1400,Regular,2022-12-09
+1011,Hermione Grager,East,12/9/22,1400,Regular,2022-12-09
