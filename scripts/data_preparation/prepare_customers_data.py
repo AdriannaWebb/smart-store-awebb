@@ -19,6 +19,7 @@ from utils.logger import logger
 # Constants
 DATA_DIR: pathlib.Path = PROJECT_ROOT.joinpath("data")
 RAW_DATA_DIR: pathlib.Path = DATA_DIR.joinpath("raw")
+PREPARED_DATA_DIR: pathlib.Path = DATA_DIR.joinpath("prepared")
 
 def read_raw_data(file_name: str) -> pd.DataFrame:
     """Read raw data from CSV."""
@@ -34,8 +35,32 @@ def read_raw_data(file_name: str) -> pd.DataFrame:
         return pd.DataFrame()  # Return an empty DataFrame if any other error occurs
 
 def process_data(file_name: str) -> None:
-    """Process raw data by reading it into a pandas DataFrame object."""
+    """Process raw data by cleaning and saving to prepared directory."""
+    # Make sure the prepared directory exists
+    PREPARED_DATA_DIR.mkdir(exist_ok=True, parents=True)
+    
+    # Read the raw data
     df = read_raw_data(file_name)
+    
+    if not df.empty:
+        # Log the number of raw records
+        raw_count = len(df)
+        logger.info(f"Raw data contains {raw_count} records.")
+        
+        # Basic cleaning: Remove duplicates
+        df_prepared = df.drop_duplicates()
+        prepared_count = len(df_prepared)
+        
+        if prepared_count < raw_count:
+            logger.info(f"Removed {raw_count - prepared_count} duplicate records.")
+        
+        # Save the prepared data
+        output_file_name = file_name.replace(".csv", "_prepared.csv")
+        output_path = PREPARED_DATA_DIR.joinpath(output_file_name)
+        df_prepared.to_csv(output_path, index=False)
+        logger.info(f"Saved prepared data to {output_path}. Total records: {prepared_count}")
+    else:
+        logger.warning(f"No data processed for {file_name}")
 
 def main() -> None:
     """Main function for processing customer data."""
