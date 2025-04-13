@@ -259,3 +259,45 @@ A preliminary analysis reveals:
 
 This information can be used to develop targeted marketing strategies, loyalty programs, and personalized customer experiences.
 
+## Power BI Business Intelligence Implementation
+
+### SQL Queries and Reports
+For this project, I used Power BI Desktop to connect to the SQLite database containing the Smart Store data. The key SQL query used to analyze customer revenue was:
+
+```sql
+SELECT c.customer_id, c.name, SUM(s.sale_amount) AS total_revenue
+FROM fact_sales s
+JOIN dim_customer c ON s.customer_id = c.customer_id
+GROUP BY c.customer_id, c.name
+ORDER BY total_revenue DESC
+```
+This query aggregates sales data to calculate total revenue by customer, allowing us to identify our most valuable customers.
+
+### Dashboard Design Choices
+The dashboard was designed with the following considerations:
+
+- Used a bar chart for Top Customers to clearly visualize revenue differences
+- Implemented date range slicers to allow filtering by time periods
+- Added matrix visuals to enable cross-analysis by product categories and regions
+- Created interactive drilldown capabilities from year → quarter → month
+- Selected a color palette that enhances readability and highlights key insights
+- Arranged visualizations to tell a cohesive story about customer purchasing patterns
+
+### Connection Process
+
+- Installed and configured the SQLite ODBC driver
+- Created a System DSN to connect to the Smart Store database
+- Connected Power BI to the database using the ODBC connection
+- Loaded dimension and fact tables (dim_customer, dim_product, dim_store, fact_sales)
+- Created relationships between tables in the data model
+- Developed custom measures for analyzing sales performance
+
+### Key Insights
+The analysis revealed several important insights:
+
+- Top revenue-generating customers (William White, Hermione Granger, etc.)
+- Seasonal sales patterns throughout the year
+- Product categories with highest revenue contribution
+- Regional performance differences
+![alt text](image.png)
+
