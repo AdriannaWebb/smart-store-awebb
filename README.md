@@ -299,5 +299,76 @@ The analysis revealed several important insights:
 - Seasonal sales patterns throughout the year
 - Product categories with highest revenue contribution
 - Regional performance differences
-![alt text](image.png)
+![alt text](image-2.png)
 
+## P6. BI Insights and Storytelling
+
+### 1. The Business Goal
+
+**Campaign Effectiveness by State Analysis**
+
+This analysis addresses the question: "Which marketing campaigns are most effective in specific states/regions?" This is important because understanding regional preferences for marketing campaigns allows for more targeted allocation of marketing budgets and customization of campaign strategies based on regional preferences, ultimately improving ROI on marketing spend.
+
+### 2. Data Source
+
+I used prepared data from my data warehouse, focusing on the following tables and columns:
+
+- **fact_sales**: transaction_id, sale_amount, campaign_id, store_id, sale_date
+- **dim_campaign**: campaign_id, campaign_name
+- **dim_store**: store_id, state (region)
+
+These tables were joined to create a comprehensive view that links sales transactions to both campaigns and geographic locations.
+
+### 3. Tools
+
+I used Microsoft Power BI for this analysis because:
+
+- It provides powerful visualization capabilities that support geographic analysis
+- It allows for easy creation of relationships between tables
+- It offers interactive filtering and slicing capabilities
+- It enables the creation of custom measures for deeper analysis
+
+### 4. Workflow & Logic
+
+The analysis workflow included:
+
+1. Creating relationships between fact_sales, dim_campaign, and dim_store tables
+2. Creating visualizations that group sales amount by campaign and state
+3. Implementing filters for product categories
+4. Adding a date range selector to enable time-based analysis
+5. Creating a map visualization to provide geographic context
+
+The key OLAP techniques used were:
+
+- **Slicing**: By product category (Clothing, Electronics, Sports)
+- **Dicing**: Breaking down sales by both state and campaign simultaneously
+- **Drilldown**: From total revenue to specific campaign-state combinations
+
+### 5. Results
+![alt text](image-1.png)
+The analysis revealed several key insights:
+
+1. The Spring Sale campaign is the most effective overall, generating $47,448.68 in total revenue, particularly in Missouri and Kansas.
+2. Missouri has the highest total sales at $62,760.44, with Spring Sale being the most effective campaign.
+3. Arkansas shows strong performance with the Back to School campaign ($11,715.82).
+4. Nebraska, despite having the lowest overall sales, shows good response to the Summer Special campaign relative to its market size.
+5. Non-campaign periods still generate significant revenue ($31,819.72), suggesting some regions may not require constant promotional activities.
+
+### 6: Suggested Business Action
+
+Based on the analysis, I recommend the following actions:
+
+1. Increase Spring Sale marketing budget in Missouri and Kansas, where it shows the strongest performance.
+2. Focus Back to School campaign resources on Arkansas, where it has proven effective.
+3. Consider testing modified versions of the Summer Special in Nebraska to build on its relative success there.
+4. Evaluate the necessity of campaigns in regions where non-campaign sales are strong, potentially reducing promotional discounts in those areas.
+5. Develop region-specific marketing messages that align with the preferences demonstrated in each state.
+
+### 7. Challenges
+
+During this analysis, I encountered several challenges:
+
+1. Limited data made it difficult to calculate more advanced metrics like a campaign effectiveness ratio.
+1. Creating appropriate visualizations that clearly showed both campaign and regional performance simultaneously required several iterations.
+
+These challenges were addressed by focusing on the available data points and creating complementary visualizations (map, table, and bar chart) that together tell a complete story about campaign effectiveness by state.
