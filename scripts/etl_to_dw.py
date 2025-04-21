@@ -51,6 +51,17 @@ def create_schema(cursor: sqlite3.Cursor) -> None:
         )
     """)
     
+    # Add the new campaign dimension table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS dim_campaign (
+            campaign_id INTEGER PRIMARY KEY,
+            campaign_name TEXT,
+            start_date TEXT,
+            end_date TEXT,
+            description TEXT
+        )
+    """)
+    
     # Create the fact table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS fact_sales (
@@ -65,7 +76,8 @@ def create_schema(cursor: sqlite3.Cursor) -> None:
             payment_type TEXT,
             FOREIGN KEY (customer_id) REFERENCES dim_customer (customer_id),
             FOREIGN KEY (product_id) REFERENCES dim_product (product_id),
-            FOREIGN KEY (store_id) REFERENCES dim_store (store_id)
+            FOREIGN KEY (store_id) REFERENCES dim_store (store_id),
+            FOREIGN KEY (campaign_id) REFERENCES dim_campaign (campaign_id)
         )
     """)
     
@@ -79,6 +91,7 @@ def delete_existing_records(cursor: sqlite3.Cursor) -> None:
     cursor.execute("DELETE FROM dim_customer")
     cursor.execute("DELETE FROM dim_product")
     cursor.execute("DELETE FROM dim_store")
+    cursor.execute("DELETE FROM dim_campaign")  # Add this line to delete campaign records
     
     logger.info("Existing records deleted.")
 
@@ -126,6 +139,27 @@ def insert_stores(sales_df: pd.DataFrame, cursor: sqlite3.Cursor) -> None:
     
     logger.info(f"Inserted {len(store_data)} stores.")
 
+def insert_campaigns(cursor: sqlite3.Cursor) -> None:
+    """Insert campaign data into the dim_campaign table."""
+    logger.info("Inserting campaign data...")
+    
+    try:
+        # Load the prepared campaign data
+        campaigns_data_file = PREPARED_DATA_DIR.joinpath("campaigns_data_prepared.csv")
+        campaigns_df = pd.read_csv(campaigns_data_file)
+        
+        # Prepare campaign data
+        campaign_data = campaigns_df[['campaignid', 'campaignname', 'startdate', 'enddate', 'description']]
+        campaign_data.columns = ['campaign_id', 'campaign_name', 'start_date', 'end_date', 'description']
+        
+        # Insert into dim_campaign
+        campaign_data.to_sql("dim_campaign", cursor.connection, if_exists="append", index=False)
+        
+        logger.info(f"Inserted {len(campaign_data)} campaigns.")
+    except Exception as e:
+        logger.error(f"Error inserting campaign data: {str(e)}")
+        raise
+
 def insert_sales(sales_df: pd.DataFrame, cursor: sqlite3.Cursor) -> None:
     """Insert sales data into the fact_sales table."""
     logger.info("Inserting sales data...")
@@ -172,6 +206,7 @@ def load_data_to_db() -> None:
         insert_customers(customers_df, cursor)
         insert_products(products_df, cursor)
         insert_stores(sales_df, cursor)
+        insert_campaigns(cursor)  # Add this line to insert campaign data
         insert_sales(sales_df, cursor)
         
         # Commit changes

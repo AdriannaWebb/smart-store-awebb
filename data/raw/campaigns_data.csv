@@ -1,0 +1,5 @@
+CampaignID,CampaignName,StartDate,EndDate,Description
+0,No Campaign,2024-01-01,2024-12-31,Regular sales without specific campaign
+1,Spring Sale,2024-05-01,2024-05-31,Seasonal promotion with discounts on selected items
+2,Summer Special,2024-07-01,2024-07-31,Mid-year promotional event
+3,Back to School,2024-09-01,2024-09-30,End of summer campaign targeting school supplies
