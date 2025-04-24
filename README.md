@@ -372,3 +372,103 @@ During this analysis, I encountered several challenges:
 1. Creating appropriate visualizations that clearly showed both campaign and regional performance simultaneously required several iterations.
 
 These challenges were addressed by focusing on the available data points and creating complementary visualizations (map, table, and bar chart) that together tell a complete story about campaign effectiveness by state.
+
+
+# P7: BI Insights and Storytelling
+
+## 1. The Business Goal
+
+The primary business goal of this analysis was to understand total revenue performance by product category, subcategory, and individual products over time. This analysis aims to identify which product categories drive the most revenue and how revenue trends change throughout the year by quarter. Understanding these patterns allows for better inventory management, focused marketing efforts, and strategic product development decisions.
+
+## 2. Data Source
+
+This analysis utilized prepared data from the Smart Store data warehouse, focusing primarily on:
+
+- **Products data**: Information about products, including categories, subcategories, and pricing
+- **Sales data**: Transaction information containing sales amounts, dates, and product relationships
+
+The data was stored in prepared CSV files (`products_data_prepared.csv` and `sales_data_prepared.csv`) and was also available through the SQLite database (`smart_store.db`) in the data warehouse.
+
+## 3. Tools Used
+
+The analysis was conducted using:
+
+- **Microsoft Power BI**: For creating interactive visualizations and dashboards
+- **SQL**: For querying relevant data from the smart_store database
+- **Data modeling**: To create relationships between fact and dimension tables
+
+Power BI was selected for its strong visualization capabilities, intuitive interface, and robust data relationship management, making it ideal for analyzing sales data across multiple dimensions.
+
+## 4. Workflow & Logic
+
+The analysis workflow followed these key steps:
+
+1. **Data Connection**: Connected to the prepared data sources and established relationships between product and sales data
+2. **Data Modeling**: Created a star schema with relationships between dimension tables (dim_product) and fact tables (fact_sales)
+3. **Measure Creation**: Developed measures to calculate total revenue
+4. **Time Dimension Analysis**: Grouped sales data by quarters to analyze seasonal trends
+5. **Hierarchy Development**: Created a product hierarchy (Category → Subcategory → Product) to enable drill-down analysis
+6. **Visualization Design**: Developed line charts to show trends over time with consistent color coding
+
+The key OLAP technique used was drill-down, allowing analysis from category to subcategory to individual product level.
+
+## 5. Results
+![alt text](image-3.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+
+The analysis revealed several key insights about revenue performance:
+
+**Category Performance**: Electronics is by far the dominant revenue category, with significantly higher sales than Clothing and Sports categories. Electronics generated approximately 89K in revenue compared to just 6K for Clothing and even less for Sports.
+
+**Quarterly Trends**: The data shows that:
+- Electronics revenue remained strong in Q1-Q3 (around 27K-30K per quarter) but dropped dramatically in Q4 to about 5.6K
+- Clothing showed modest growth from Q1 to Q3 (3.2K to 6.2K) before declining in Q4
+- Sports category consistently generated the lowest revenue across all quarters
+
+**Product-Level Analysis**: When drilling down to the product level:
+- The "laptop" product dominates revenue in the Electronics category, accounting for nearly all category revenue (27.8K in Q1-Q3)
+- "Jacket" emerges as a strong performer in Q3 with 3.7K in revenue
+- "Controller" shows moderate performance with 2.3K in Q2
+
+**Subcategory Insights**: The subcategory breakdown shows Laptop and Accessories as the strongest performers within Electronics, while Apparel and Outerwear lead within the Clothing category.
+
+## 6. Suggested Business Action
+
+Based on the analysis, the following business actions are recommended:
+
+1. **Address Q4 Electronics Decline**: Investigate the dramatic drop in laptop sales in Q4. Potential strategies include end-of-year promotions, new product releases, or bundle offerings to maintain revenue momentum.
+
+2. **Capitalize on Clothing Growth**: Leverage the positive trend in clothing sales (particularly in Q3) by expanding marketing efforts for jackets and similar outerwear products during seasonal transitions.
+
+3. **Evaluate Sports Category Strategy**: Reconsider inventory allocation and marketing investment in the Sports category given its consistently low revenue contribution. Consider reducing SKUs or strategically repositioning these products.
+
+4. **Seasonal Inventory Management**: Adjust inventory planning based on quarterly trends, with increased Electronics stock in Q1-Q3 and more focus on Clothing in Q3.
+
+5. **Product Development Focus**: Prioritize development and expansion of the laptop and accessories subcategories given their dominant revenue contribution.
+
+## 7. Challenges
+
+Several challenges were encountered during this analysis:
+
+1. **Data Granularity**: The quarterly view provides good trend analysis but may mask more detailed monthly or weekly patterns that could be valuable for more precise inventory and marketing planning.
+
+2. **Limited Context**: The analysis focuses solely on revenue without cost data, making it impossible to analyze profitability, which might tell a different story than pure revenue. High-revenue products might have lower margins.
+
+3. **Extreme Value Ranges**: The large difference between Electronics and other categories (89K vs. 6K) creates visualization challenges where smaller categories are difficult to analyze in detail when shown alongside Electronics.
+
+4. **Seasonal Factors**: Without multiple years of data, it's difficult to determine if the Q4 decline in Electronics revenue is a seasonal pattern or an anomaly specific to this year.
+
+## 8. Ethical Considerations
+
+This analysis raises several ethical considerations:
+
+1. **Data Privacy**: While working with aggregated sales data minimizes privacy risks, care must be taken to ensure no personally identifiable customer information is exposed in detailed transaction data.
+
+2. **Business Decision Impact**: Decisions to potentially reduce focus on lower-performing categories like Sports might negatively impact customers who rely on these products. The business should consider customer needs alongside revenue metrics.
+
+3. **Complete Context**: Making decisions based solely on revenue without considering other factors (customer satisfaction, market trends, profitability) could lead to short-sighted strategies that harm long-term business health.
+
+4. **Interpretation Bias**: The dramatic visualization of Electronics dominance might lead to overlooking important patterns or opportunities in smaller categories that could have strategic importance despite lower revenue.
+
+5. **Equitable Resource Allocation**: Ensuring that data-driven decisions don't disproportionately benefit certain customer segments while leaving others underserved is an important ethical consideration in retail analytics.
